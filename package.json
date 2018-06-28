@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/ggentil/proto-nodejs-mvc#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "express-load": "^1.1.16"
+    "express-load": "^1.1.16",
+    "method-override": "^2.3.10"
   }
 }
