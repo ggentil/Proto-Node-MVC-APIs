@@ -1,14 +1,13 @@
 var express = require('express');
-var load = require('express-load');
+var load = require('express-load'); 
 var bodyParser = require('body-parser');
-
-var home = require('../app/routes/home');
 
 module.exports = function() {
     var app = express();
 
     //environment variables
-    app.set('port', 3000);
+    const port = process.env.port || 3000;
+    app.set('port', port);
 
     //view engine EJS
     app.set('view engine', 'ejs');
