@@ -6,7 +6,7 @@ module.exports = function(app) {
     let Contato = app.models.contato;
 
     controller.listaContatos = function(req, res) {
-        Contato.find().exec()
+        Contato.find().populate('emergencia').exec()
             .then(function(contatos){
                 res.json(utilService.throwDefaultResponse(true, null, contatos));
             }, function(erro) {
@@ -22,6 +22,7 @@ module.exports = function(app) {
             Contato.find()
                 .select("nome email")
                 .where("email").equals(email)
+                .populate('emergencia')
                 .exec()
                 .then(function(contatos){
                     if (!contatos) throw new Error("Nenhum contato encontrado.");
@@ -39,7 +40,7 @@ module.exports = function(app) {
         let _id = req.params.id;
         
         if(_id) {
-            Contato.findById(_id).exec()
+            Contato.findById(_id).populate('emergencia').exec()
                 .then(function(contato){
                     if (!contato) throw new Error("Contato não encontrado.");
                     res.json(utilService.throwDefaultResponse(true, null, contato));
@@ -69,6 +70,8 @@ module.exports = function(app) {
 
     controller.salvaContato = function(req, res) {
         var _id = req.body._id;
+
+        req.body.emergencia = req.body.emergencia || null;
 
         if(_id) {
             Contato.findByIdAndUpdate(_id, req.body).exec()

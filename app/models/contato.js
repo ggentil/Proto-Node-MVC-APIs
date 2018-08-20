@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports = function(){
+module.exports = function () {
 
     var schema = mongoose.Schema({
         nome: {
@@ -13,6 +13,10 @@ module.exports = function(){
             index: {
                 unique: true
             }
+        },
+        emergencia: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Contato'
         }
     });
 
