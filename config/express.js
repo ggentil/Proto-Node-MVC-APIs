@@ -11,7 +11,7 @@ module.exports = function() {
     var app = express();
 
     //environment variables
-    const port = process.env.port || 3000;
+    const port = 3000;
     app.set('port', port);
 
     //view engine EJS
@@ -42,6 +42,7 @@ module.exports = function() {
     //routes, configs and assignments
     load('models', {cwd: 'app'})
         .then('controllers')
+        .then('routes/auth.js')
         .then('routes')
         .into(app);
     
