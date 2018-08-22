@@ -20,5 +20,6 @@ module.exports = function () {
         }
     });
 
+    
     return mongoose.model('Contato', schema);
 };
