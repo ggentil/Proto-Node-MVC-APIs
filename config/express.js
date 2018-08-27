@@ -39,7 +39,7 @@ module.exports = function() {
     //app.use(helmet());                                                    //Enables all security middlewares
     //app.disable('x-powered-by');                                          //Disable "Powered By" header
     app.use(helmet.hidePoweredBy({ setTo: 'PHP 5.5.14' }));                 //Send wrong tecnology in "Powered By" header
-    app.use(helmet.xframe());                                               //Prevent page to open on iframe/frame tags
+    app.use(helmet.frameguard());                                           //Prevent page to open on iframe/frame tags
     app.use(helmet.xssFilter());                                            //Enable "X-XSS-Protection" header, XSS protection
     app.use(helmet.noSniff());                                              //Apply restriction to TAGS to only MIME-types
     //- Helmet FIM
