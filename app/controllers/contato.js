@@ -1,8 +1,8 @@
-var util = require('../services/util');
+var utilService = require('../services/util')();
+var sanitize = require('mongo-sanitize');
 
 module.exports = function(app) {
     let controller = {};
-    let utilService = new util();
     let Contato = app.models.contato;
 
     controller.listaContatos = function(req, res) {
@@ -54,7 +54,7 @@ module.exports = function(app) {
     };
 
     controller.removeContato = function(req, res) {
-        let _id = req.params.id;
+        let _id = sanitize(req.params.id);
         
         if(_id) {
             Contato.remove({"_id": _id}).exec()
@@ -70,11 +70,14 @@ module.exports = function(app) {
 
     controller.salvaContato = function(req, res) {
         var _id = req.body._id;
-
-        req.body.emergencia = req.body.emergencia || null;
+        var dados = {
+            "nome": req.body.nome,
+            "email" : req.body.email,
+            "emergencia" : req.body.emergencia || null
+        }
 
         if(_id) {
-            Contato.findByIdAndUpdate(_id, req.body).exec()
+            Contato.findByIdAndUpdate(_id, dados).exec()
                 .then(function(contato) {
                     res.json(utilService.throwDefaultResponse(true, null, contato));
                 }, function(erro) {
@@ -82,7 +85,7 @@ module.exports = function(app) {
                     res.status(500).json(utilService.throwDefaultResponse(false, "Erro ao atualizar contato.", erro));
                 })
         } else {
-            Contato.create(req.body)
+            Contato.create(dados)
                 .then(function(contato) {
                     res.status(201).json(utilService.throwDefaultResponse(true, null, contato));
                 }, function(erro) {
