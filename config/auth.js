@@ -1,6 +1,8 @@
-var utilService = require('../services/util')();
+var util = require('../app/services/util');
 
 module.exports = function(req, res, next) {
+    let utilService = new util();
+
     if (req.isAuthenticated()) {
         return next();
     } else {

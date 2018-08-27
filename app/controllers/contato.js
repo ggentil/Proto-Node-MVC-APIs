@@ -1,8 +1,9 @@
-var utilService = require('../services/util')();
+var util = require('../services/util');
 var sanitize = require('mongo-sanitize');
 
 module.exports = function(app) {
     let controller = {};
+    let utilService = new util();
     let Contato = app.models.contato;
 
     controller.listaContatos = function(req, res) {
