@@ -2,7 +2,7 @@ var http = require('http');
 var app = require('./config/express')();
 
 require('./config/passport')();
-require('./config/database.js')('mongodb://localhost:27017/contatooh');
+require('./config/database.js')('mongodb://ggentil:proto25@ds245287.mlab.com:45287/proto-node-mvc');
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express Server executando na porta ' + app.get('port'));
